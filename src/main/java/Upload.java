@@ -31,6 +31,12 @@ public class Upload {
         properties.load(input);
     }
 
+    /**
+     * It upload the image to the http://imgur.com/
+     * @param imageUrl Url of the image to be uploaded.
+     * @return Url of the imgur image link.
+     * @throws IOException
+     */
     public String uploadImage(String imageUrl) throws IOException {
         URL url = new URL(properties.getProperty(IMGUR_URL));
         InputStream inputStream = establishConnectionForPost(url, imageUrl, properties.getProperty(CLIENT_ID));
@@ -47,6 +53,14 @@ public class Upload {
     }
 
 
+    /**
+     * It sends post request to https://api.imgur.com/3/image.
+     * @param url Rest Endpoint provided by the Imgur.
+     * @param imageUrl Url of the image to be uploaded.
+     * @param clientId Client id of the user in Imgur.
+     * @return
+     * @throws IOException
+     */
     InputStream establishConnectionForPost(URL url, String imageUrl, String clientId) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -54,7 +68,6 @@ public class Upload {
         connection.setDoInput(true);
         connection.setDoOutput(true);
 
-        System.out.println(APPLICATION_FORM);
         connection.setRequestProperty(AUTHORIZATION , CONNECTION_ID + SPACE + clientId);
         connection.setRequestProperty(CONTENT_TYPE, APPLICATION_FORM);
         connection.setRequestProperty(ACCEPT, APPLICATION_JSON);
@@ -62,8 +75,7 @@ public class Upload {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream());
         outputStreamWriter.write(imageUrl);
         outputStreamWriter.flush();
-        InputStream inputStream = connection.getInputStream();
 
-        return inputStream;
+        return connection.getInputStream();
     }
 }

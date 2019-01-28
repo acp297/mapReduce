@@ -16,18 +16,22 @@ public class Driver extends Configured implements Tool{
         System.exit(exitCode);
     }
 
+    /**
+     * It configures the Job.
+     * @param args input output path
+     * @return
+     * @throws Exception
+     */
     public int run(String[] args) throws Exception {
-        System.out.println(args.length);
         if (args.length != 2) {
-            System.err.printf("Usage: %s [generic options] <input> <output>\n",
-                    getClass().getSimpleName());
+            System.err.printf("Invalid Arguments");
             ToolRunner.printGenericCommandUsage(System.err);
             return -1;
         }
 
         Job job = new Job();
         job.setJarByClass(Driver.class);
-        job.setJobName("Anand");
+        job.setJobName("imageUploadJob");
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
@@ -39,7 +43,7 @@ public class Driver extends Configured implements Tool{
         job.setNumReduceTasks(0);
 
         int returnValue = job.waitForCompletion(true) ? 0:1;
-        System.out.println("job is Successful " + job.isSuccessful());
+        System.out.println("job is Successful");
         return returnValue;
     }
 }
