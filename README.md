@@ -1,4 +1,4 @@
-# Hadoop Aplication for uploading image
+# Hadoop Application for uploading image
 #### ABOUT
  
 Map reduce job to upload image to Imgur. 
@@ -92,7 +92,7 @@ This Application is deployed in local on mac  as well as in Cloudera Docker VM.
        ```jps```
      
      - Browse the web interface for the name node at - [http://localhost:50070/](http://localhost:50070/)  OR [http://localhost:9870](http://localhost:9870)
-     - And resource manager at - [http://locbalhost:8088/](http://locbalhost:8088/)
+     - And resource manager at - [http://locbalhost:8088/](http://localhost:8088/)
    
    - Stop all daemons :
      * ``sbin/stop-all.sh``
